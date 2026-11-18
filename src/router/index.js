@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+// 1. 这里把 createWebHistory 换成了 createWebHashHistory
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
     {
@@ -21,10 +22,11 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(), // 2. 这里也换成 Hash 模式
     routes
 })
-// src/router/index.js (核心片段)
+
+// 路由守卫
 router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true'
 
@@ -40,5 +42,5 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
 export default router
-// 123
